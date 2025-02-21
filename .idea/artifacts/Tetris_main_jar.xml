@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Tetris.main:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Tetris_main_jar</output-path>
+    <root id="archive" name="Tetris.main.jar">
+      <element id="module-output" name="Tetris.main" />
+      <element id="extracted-dir" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jline/jline/3.21.0/2bf6f2311356f309fda0412e9389d2499346b5a1/jline-3.21.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
