@@ -103,6 +103,8 @@ public class TetrisGame {
                 holdBlockScene.addContentToScene(heldBlock.getShape(),new Pos(holdBlockScene.getWidth()/2-1,holdBlockScene.getHeight()/2+1));
                 window.changeBackgroundContent("HoldPiece",holdBlockScene);
             }
+        } else {
+            return;
         }
         canHoldPiece = false;
         EventManager.emit(new BlockShiftEvent(currentBlock,heldBlock));
