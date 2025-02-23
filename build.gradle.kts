@@ -23,7 +23,7 @@ tasks.test {
 tasks {
     shadowJar {
         manifest {
-            attributes["Main-Class"] = "org.example.Main" // Change this to your main class
+            attributes["Main-Class"] = "org.example.Main"
         }
     }
 }

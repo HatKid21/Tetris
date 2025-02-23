@@ -28,6 +28,7 @@ public class TetrisGame {
     private boolean canHoldPiece = true;
 
     private Block ghostBlock;
+    private Score score;
 
     private final Scene gridScene;
     private final Grid grid;
@@ -70,6 +71,10 @@ public class TetrisGame {
         nextBlocks = emptyNextBlocks.clone();
         window.changeBackgroundContent("NextBlocks", nextBlocks);
         updateNextBlocks();
+
+        this.score = new Score();
+        score.getScoreScene().setCoordinate(nextBlockPos.add(0,emptyNextBlocks.getHeight()));
+        window.changeForegroundContent("GameData",score.getScoreScene());
 
         emptyHoldBlockScene = TextToSceneConverter.convert("Visual\\holdPiece.txt");
         holdBlockScene = emptyHoldBlockScene.clone();
@@ -179,6 +184,7 @@ public class TetrisGame {
         if (gameOver){
             return;
         }
+        window.changeForegroundContent("GameData",score.getScoreScene());
         gameGridUpdate();
         updateNextBlocks();
         EventManager.emit(new UIUpdateEvent(window));

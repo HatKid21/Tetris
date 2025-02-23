@@ -21,7 +21,7 @@ public class TextToSceneConverter {
                 return null;
             }
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));;
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             String line = reader.readLine();
             StringBuilder builder = new StringBuilder();
             int height = 0;

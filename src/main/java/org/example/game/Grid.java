@@ -179,13 +179,16 @@ public class Grid {
     }
 
     protected void clearLines(){
+        int rowsCleared = 0;
         for (int y = lockedGrid.length-1; y > -1; y--) {
             if (isRowFull(y)){
+                rowsCleared++;
                 removeRow(y);
                 shiftRows(y);
                 y++;
             }
         }
         visualGrid = cloneGrid(lockedGrid);
+        EventManager.emit(new RowClearedEvent(rowsCleared));
     }
 }

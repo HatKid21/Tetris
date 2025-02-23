@@ -9,7 +9,7 @@ import java.util.List;
 public class Scene {
 
     private Cell[][] content;
-    private final Pos coordinate;
+    private Pos coordinate;
     private int width;
     private int height;
 
@@ -69,6 +69,10 @@ public class Scene {
                 System.out.println(newPos);
             }
         }
+    }
+
+    public void setCoordinate(Pos coordinate){
+        this.coordinate = coordinate;
     }
 
     public void updateContent(Cell[][] newContent){
