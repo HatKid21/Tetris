@@ -46,6 +46,7 @@ public class Score {
         String stringLevel = String.valueOf(level);
         for (char c : stringLevel.toCharArray()){
             scoreScene.getContent()[1][col] = new Cell(Color.WHITE,c,false);
+            col++;
         }
     }
 
