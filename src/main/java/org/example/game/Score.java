@@ -12,10 +12,14 @@ public class Score {
     private long score;
     private long level;
     private Scene scoreScene;
+    private long linesCleared;
+    private float combo;
 
     public Score(){
         this.score = 0;
         this.level = 1;
+        this.linesCleared = 0;
+        this.combo = 0;
         initScoreScene();
         applyScoreToScene();
         EventManager.subscribe(RowClearedEvent.class, this::applyScore);
@@ -39,12 +43,18 @@ public class Score {
         String stringScore = String.valueOf(score);
         int col = 7;
         for(char c : stringScore.toCharArray()){
+            if (col >= scoreScene.getContent()[0].length){
+                continue;
+            }
             scoreScene.getContent()[0][col] = new Cell(Color.WHITE,c,false);
             col++;
         }
         col = 7;
         String stringLevel = String.valueOf(level);
         for (char c : stringLevel.toCharArray()){
+            if (col >= scoreScene.getContent()[0].length){
+                continue;
+            }
             scoreScene.getContent()[1][col] = new Cell(Color.WHITE,c,false);
             col++;
         }
@@ -53,11 +63,17 @@ public class Score {
     private void applyScore(RowClearedEvent event){
         long rowsCleared = event.getRowsCleared();
         if (rowsCleared == 0){
+            combo = 1;
+        } else{
+            combo += 0.5f;
+        }
+        linesCleared += rowsCleared;
+        if (rowsCleared == 0){
             score += 10;
         } else{
-            score += level * 100 * rowsCleared;
+            score += (long) (combo * level * 100 * rowsCleared);
         }
-        level = score / 1000 + 1;
+        level = linesCleared / 10 + 1;
         applyScoreToScene();
     }
 
