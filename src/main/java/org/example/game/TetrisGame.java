@@ -32,11 +32,13 @@ public class TetrisGame {
 
     private final Scene gridScene;
     private final Grid grid;
-    private static final Pos blockSpawnPos = new Pos(4, 0);
+    private static final Pos blockSpawnPos = new Pos(4, 1);
     private Block currentBlock;
 
+    private final int softDropSpeed = 20;
+
     private Thread gameThread;
-    private final int gameSpeed = 500;
+    private int gameSpeed = 500;
     private volatile boolean skipSleep = false;
     private volatile boolean softDropActive = false;
     private final AtomicInteger loopsNotLanded = new AtomicInteger(0);
@@ -54,10 +56,15 @@ public class TetrisGame {
         new GameApplication(this);
         currentBlock = blockQueue.nextBlock();
         setupWindow();
-        gridScene = new Scene(grid.getVisualGrid(), window.getBackgroundData("GridFrame").getCoordinate().add(1,0));
+        gridScene = new Scene(grid.getVisualGrid(), window.getBackgroundData("GridFrame").getCoordinate().add(1, 0));
         window.changeForegroundContent("GameGrid",gridScene);
         EventManager.emit(new BlockSpawnEvent(currentBlock));
         EventManager.subscribe(GameOverEvent.class, this::gameOver);
+        EventManager.subscribe(LevelUpEvent.class, this:: updateGameSpeed);
+    }
+
+    private void updateGameSpeed(LevelUpEvent event){
+        gameSpeed -= (int) (gameSpeed * 0.1);
     }
 
     private void setupWindow(){
@@ -138,7 +145,7 @@ public class TetrisGame {
                 proceedGameLoop();
                 if (!skipSleep) {
                     try {
-                        TimeUnit.MILLISECONDS.sleep(softDropActive ? gameSpeed / 50 : gameSpeed);
+                        TimeUnit.MILLISECONDS.sleep(softDropActive ? softDropSpeed : gameSpeed);
                     } catch (InterruptedException e) {
                         if (gameOver) {
                             return;
@@ -167,7 +174,7 @@ public class TetrisGame {
             if (temp >= 2 && !softDropActive){
                 placeBlock();
                 loopsNotLanded.set(0);
-            } else if (temp > 30 && softDropActive) {
+            } else if (temp > 50 && softDropActive) {
                 placeBlock();
                 loopsNotLanded.set(0);
             }

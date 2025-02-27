@@ -1,5 +1,6 @@
 package org.example.game;
 
+import org.example.Events.LevelUpEvent;
 import org.example.Events.RowClearedEvent;
 import org.example.input.EventManager;
 import org.example.render.Cell;
@@ -62,6 +63,7 @@ public class Score {
 
     private void applyScore(RowClearedEvent event){
         long rowsCleared = event.getRowsCleared();
+        long prevLevel = level;
         if (rowsCleared == 0){
             combo = 1;
         } else{
@@ -74,6 +76,9 @@ public class Score {
             score += (long) (combo * level * 100 * rowsCleared);
         }
         level = linesCleared / 10 + 1;
+        if (level != prevLevel){
+            EventManager.emit(new LevelUpEvent(prevLevel,level));
+        }
         applyScoreToScene();
     }
 
