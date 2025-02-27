@@ -69,11 +69,11 @@ public class TetrisGame {
 
     private void setupWindow(){
         window = new org.example.render.Window(35,22);
-        window.changeBackgroundContent("GridFrame", TextToSceneConverter.convert("Visual\\gameGridFrame.txt",new Pos(7,0)));
+        window.changeBackgroundContent("GridFrame", TextToSceneConverter.convert("Visual/gameGridFrame.txt",new Pos(7,0)));
 
         Pos nextBlockPos = window.getBackgroundData("GridFrame").getCoordinate();
         nextBlockPos = nextBlockPos.add(window.getBackgroundData("GridFrame").getWidth(),0);
-        emptyNextBlocks = TextToSceneConverter.convert("Visual\\nextBlocks.txt",nextBlockPos);
+        emptyNextBlocks = TextToSceneConverter.convert("Visual/nextBlocks.txt",nextBlockPos);
         assert emptyNextBlocks != null;
         nextBlocks = emptyNextBlocks.clone();
         window.changeBackgroundContent("NextBlocks", nextBlocks);
@@ -83,7 +83,7 @@ public class TetrisGame {
         score.getScoreScene().setCoordinate(nextBlockPos.add(0,emptyNextBlocks.getHeight()));
         window.changeForegroundContent("GameData",score.getScoreScene());
 
-        emptyHoldBlockScene = TextToSceneConverter.convert("Visual\\holdPiece.txt");
+        emptyHoldBlockScene = TextToSceneConverter.convert("Visual/holdPiece.txt");
         holdBlockScene = emptyHoldBlockScene.clone();
         window.changeBackgroundContent("HoldPiece",holdBlockScene);
     }

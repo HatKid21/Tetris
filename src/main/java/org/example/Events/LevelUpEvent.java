@@ -9,7 +9,7 @@ public class LevelUpEvent extends Event {
 
     public LevelUpEvent(long previousLevel, long currentLevel){
         this.currentLevel = currentLevel;
-        this.previousLevel = currentLevel;
+        this.previousLevel = previousLevel;
     }
 
     public long getCurrentLevel() {
